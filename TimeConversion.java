@@ -9,7 +9,7 @@ public class TimeConversion {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String time = "01:23:43AM";
+		String time = "1:23:43PM";
 		System.out.println(timeConversion(time));
 	}
 	
