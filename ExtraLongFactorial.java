@@ -7,7 +7,19 @@ public class ExtraLongFactorial {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		extraLongFactorials(4);
+//		extraLongFactorials(4);
+		//converting integer to big integer
+		BigInteger big_integer = BigInteger.valueOf(45);
+		//converting big integer back to integer
+		int integer_value = big_integer.intValue();
+		//converting big integer to long
+		long long_value = big_integer.longValue();
+		
+		//converting string to big integer
+		BigInteger bigInteger = new BigInteger("1234");
+		// big integer back to string
+		String string_expression = bigInteger.toString();
+		System.out.println(string_expression + "hello!");
 
 	}
 
