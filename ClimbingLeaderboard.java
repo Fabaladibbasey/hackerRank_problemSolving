@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+//https://www.hackerrank.com/challenges/climbing-the-leaderboard/problem
 public class ClimbingLeaderboard {
 
 	public static void main(String[] args) {
@@ -21,43 +22,66 @@ public class ClimbingLeaderboard {
 		System.out.println(climbingLeaderboard(list, playerList));
 	}
 
-    public static List<Integer> climbingLeaderboard(List<Integer> ranked, List<Integer> player) {
-    // player -> Alice
-    // rank -> Leaderboard ranking
-    	List<Integer> rankTrack = new ArrayList<Integer>();
-    	Set<Integer> rankedSet = new HashSet<Integer>(ranked);
-    	for (int i = 0; i < player.size(); i++) {
-    		rankTrack.add(scoreIndex(rankedSet, player.get(i)) + 1);
-    	}
-    	return rankTrack;
-    }
-
- public static int scoreIndex(Set<Integer> ranks, int score){
-	 List<Integer> scoreInsertedList = new ArrayList<Integer>(ranks);
-	 scoreInsertedList.add(score);
-	 Collections.sort(scoreInsertedList, Collections.reverseOrder());
-	 return indexOf(scoreInsertedList, score);
- 
- }
- 
- public static int indexOf(List<Integer> list, int value) {
-	 //first occurrence using binary search on descending order list
-	 int index = -1;
-	 int left = 0;
-	 int right = list.size() - 1;
-	 while (left <= right) {
-		 int mid = (left + right) / 2;
-		 if(list.get(mid) == value) {
-			 return mid;
-		 }else if(list.get(mid) < value) {
-			 //search left
-			 right = mid - 1;
-		 }else {
-			 //search right
-			 left = mid + 1;
+//while this works fine but exceeded the time limit 
+//    public static List<Integer> climbingLeaderboard(List<Integer> ranked, List<Integer> player) {
+//    // player -> Alice
+//    // rank -> Leaderboard ranking
+//    	List<Integer> rankTrack = new ArrayList<Integer>();
+//    	Set<Integer> rankedSet = new HashSet<Integer>(ranked);
+//    	for (int i = 0; i < player.size(); i++) {
+//    		rankTrack.add(scoreIndex(rankedSet, player.get(i)) + 1);
+//    	}
+//    	return rankTrack;
+//    }
+//
+// public static int scoreIndex(Set<Integer> ranks, int score){
+//	 ranks.add(score);
+//	 List<Integer> scoreInsertedList = new ArrayList<Integer>(ranks);
+//	 Collections.sort(scoreInsertedList, Collections.reverseOrder());
+//	 return indexOf(scoreInsertedList, score);
+// 
+// }
+// 
+// public static int indexOf(List<Integer> list, int value) {
+//	 //first occurrence using binary search on descending order list
+//	 int left = 0;
+//	 int right = list.size() - 1;
+//	 while (left <= right) {
+//		 int mid = left + (right - left) / 2;
+//		 if(list.get(mid) == value) {
+//			 return mid;
+//		 }else if(list.get(mid) < value) {
+//			 //search left
+//			 right = mid - 1;
+//		 }else {
+//			 //search right
+//			 left = mid + 1;
+//		 }
+//	 }
+//	 return -1;
+// }
+	 public static List<Integer> climbingLeaderboard(List<Integer> ranked, List<Integer> player) {
+		 List<Integer> rankTrack = new ArrayList<Integer>();
+		 Set<Integer> set = new HashSet<Integer>(ranked);
+		 List<Integer> uniqueList = new ArrayList<Integer>(set);
+		 Collections.sort(uniqueList, Collections.reverseOrder());
+		 for (int i = 0; i < player.size(); i++) {
+			 rankTrack.add(position(uniqueList, player.get(i)));
 		 }
+		 return rankTrack;
 	 }
-	 return index;
- }
- 
+	 
+	 public static int position(List<Integer> rank, int score) {
+		 int p = 1;
+		 int i = 0;
+		 while (i < rank.size()) {
+			 if(score < rank.get(i)) {
+				 p++;
+			}else {
+				return p;
+			}
+			 i++;
+		 }
+		 return p;
+	 }
 }
